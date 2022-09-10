@@ -24,8 +24,14 @@ class Test_Project_Scenario:
         self.driver.find_element(By.LINK_TEXT, "Drag & Drop Sliders").click()
         slider = self.driver.find_element(
             By.XPATH, "//*[@class='sp__range' and @value='15']")
-        ActionChains(self.driver).drag_and_drop_by_offset(
-            slider, 120, 0).perform()
+        if self.browser == "firefox":
+            ActionChains(self.driver).drag_and_drop_by_offset(
+                slider, 115, 0).perform()
+        else:
+            ActionChains(self.driver).drag_and_drop_by_offset(
+                slider, 120, 0).perform()
+
+        sleep(2)
         value_slider = slider.get_attribute("value")
         assert value_slider == "95"
 

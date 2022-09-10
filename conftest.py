@@ -23,6 +23,17 @@ app_key = "lUE20LWVFdV2mTd07Y6GMRVM58mr8vxLaBm5C9RFTOArK4gEDX"
 #     yield driver
 #     driver.quit()
 
+# @pytest.fixture(name='global_config_all')
+# def project_config(request):
+#     driver = webdriver.Firefox(
+#         executable_path="C:\AutomationCode\geckodriver.exe")
+#     driver.maximize_window()
+#     driver.set_page_load_timeout(30)
+#     request.cls.driver = driver
+#     request.cls.browser = "firefox"
+#     yield driver
+#     driver.quit()
+
 
 @pytest.fixture(params=["chrome", "firefox", "MicrosoftEdge"])
 def base_driver(request):
@@ -60,6 +71,7 @@ def base_driver(request):
         app_key + "@hub.lambdatest.com/wd/hub"
     driver = webdriver.Remote(command_executor=remote_url, options=options)
     request.cls.driver = driver
+    request.cls.browser = request.param
 
     yield driver
     driver.quit()
